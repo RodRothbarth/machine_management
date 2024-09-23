@@ -9,9 +9,8 @@ process.on("uncaughtException", (error: any) => {
   console.error("Uncaught Exception!");
 });
 
-connection;
-
-export const ServerStart = () => {
+export const ServerStart = async () => {
+  await connection;
   app.use((req: Request, res: Response, next: NextFunction) => {
     next();
   });
