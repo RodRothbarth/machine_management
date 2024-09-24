@@ -6,7 +6,6 @@ class LoginController {
   login = async (req: Request, res: Response): Promise<any> => {
     const { email, password } = req.body;
     const loginCred = await loginService.compareHash(email, password);
-
     if (!loginCred) {
       throw new AppError("Email ou senha incorretos", 401);
     }

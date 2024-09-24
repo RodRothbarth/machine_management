@@ -10,9 +10,11 @@ export function Login() {
   const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
   const [submitted, setSubmitted] = useState(false);
   async function handleClick() {
+    console.log("tentei");
     try {
       const { data } = await loginService(loginInfo);
       localStorage.setItem("jwt", data);
+      console.log(data);
       signIn(data);
     } catch (e) {
       console.error("e", e.message);

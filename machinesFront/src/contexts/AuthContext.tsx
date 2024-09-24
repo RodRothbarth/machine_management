@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { decodeToken } from "../utils/jwtSolving.ts";
 
 type AuthContextProviderProps = {
@@ -8,6 +8,7 @@ type AuthContextProviderProps = {
 type AuthContextDataProps = {
   user: IUserContext | null;
   signIn: (token: string) => void;
+  logOut: () => void;
 };
 
 export const AuthContext = createContext<AuthContextDataProps>(
@@ -32,8 +33,19 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     });
   }
 
+  function logOut() {
+    setUser(null);
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      signIn(token);
+    }
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user, signIn }}>
+    <AuthContext.Provider value={{ user, signIn, logOut }}>
       {children}
     </AuthContext.Provider>
   );

@@ -6,7 +6,7 @@ import { Header } from "../components/Header";
 export function Routes() {
   const { user } = useAuth();
 
-  if (user) {
+  if (!!user) {
     return (
       <>
         <Header />
