@@ -8,3 +8,10 @@ export interface IFilter {
   value?: object;
   select?: Array<string>;
 }
+
+export interface PaginatedDTO {
+  count: number;
+  next: number;
+  previous: number;
+  resultData: Array<any>;
+}

@@ -1,6 +1,7 @@
 import { IUser } from "./IUser";
 import USER from "./userSchema";
 import { IFilter } from "../../shared/utils/IFilter";
+import { paginatedResults } from "../../middlewares/paginateResults";
 
 class UserDBQuery {
   createNewUser = async (userInfo: IUser) => {
