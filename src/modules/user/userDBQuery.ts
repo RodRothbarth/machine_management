@@ -6,15 +6,12 @@ class UserDBQuery {
   createNewUser = async (userInfo: IUser) => {
     return await USER.create(userInfo);
   };
-  getAll = async (filter: IFilter) => {
+  getAllUsers = async (filter: IFilter) => {
     return await paginatedResults(filter, USER);
   };
 
   getUser = async (id: string) => {
     return Promise.resolve(await USER.findById(id).populate("profile"));
-  };
-  getUserByProfile = async (profileId: string) => {
-    return Promise.resolve(await USER.findOne({ profile: profileId }));
   };
 
   edit = async (id: string, userInfo: IUser) => {
