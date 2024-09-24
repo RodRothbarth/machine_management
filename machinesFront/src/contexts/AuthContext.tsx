@@ -35,6 +35,8 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
 
   function logOut() {
     setUser(null);
+    localStorage.clear();
+    sessionStorage.clear();
   }
 
   useEffect(() => {

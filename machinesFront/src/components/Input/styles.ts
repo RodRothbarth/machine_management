@@ -4,7 +4,6 @@ export const Input = styled.input`
   width: 30vh;
   line-height: 1.5;
   background-color: ${({ $invalid }) => ($invalid ? "#fed2d2" : "#d1d5db")};
-  color: ${({ $invalid }) => ($invalid ? "#fed2d2" : "#374151")};
   border: 1px solid ${({ $invalid }) => ($invalid ? "#f73f3f" : "transparent")};
   border-radius: 0.25rem;
   box-shadow:

@@ -4,7 +4,7 @@ import { useAuth } from "../../hooks/useAuth.ts";
 
 export function Header() {
   const navigate = useNavigate();
-  const { user, logOut } = useAuth();
+  const { logOut } = useAuth();
 
   return (
     <HeaderContainer>
