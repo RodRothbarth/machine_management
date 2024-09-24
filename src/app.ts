@@ -4,6 +4,7 @@ import cors from "cors";
 import { ErrorHandler } from "./shared/errorHandling/errorHandler";
 import moment from "moment";
 import loginRoutes from "./modules/user/login/loginRoutes";
+import userRoutes from "./modules/user/userRoutes";
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.get("/health", (req: Request, res: Response) => {
 });
 
 app.use("/login", loginRoutes);
+app.use("/user", userRoutes);
 
 app.use(ErrorHandler);
 export default app;

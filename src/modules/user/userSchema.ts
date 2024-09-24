@@ -39,3 +39,4 @@ userSchema.methods.correctPassword = async function (
 };
 
 const USER = model("User", userSchema);
+export default USER;
