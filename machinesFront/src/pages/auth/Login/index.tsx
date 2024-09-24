@@ -3,14 +3,19 @@ import { CustomInput } from "../../../components/Input";
 import { CustomButton } from "../../../components/Button/CustomButton.tsx";
 import { useState } from "react";
 import { loginService } from "../../../services/userService.ts";
+import { useAuth } from "../../../hooks/useAuth.ts";
 
 export function Login() {
+  const { signIn } = useAuth();
   const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
   async function handleClick() {
     try {
-      const login = await loginService(loginInfo);
-      console.log("Login", login);
-    } catch (e) {}
+      const { data } = await loginService(loginInfo);
+      localStorage.setItem("jwt", data);
+      signIn(data);
+    } catch (e) {
+      console.error("e", e.message);
+    }
   }
 
   function handleInputChange(identifier: string, value: string) {

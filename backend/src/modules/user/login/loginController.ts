@@ -10,7 +10,7 @@ class LoginController {
     if (!loginCred) {
       throw new AppError("Email ou senha incorretos", 401);
     }
-    return res.status(200).json(req.body);
+    return res.status(200).json(loginCred);
   };
 }
 export default new LoginController();
