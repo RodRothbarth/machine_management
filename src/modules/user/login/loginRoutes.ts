@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { catchAsync } from "../shared/errorHandling/catchAsync";
+import { catchAsync } from "../../../shared/errorHandling/catchAsync";
 import loginController from "./loginController";
 
 const router = Router();

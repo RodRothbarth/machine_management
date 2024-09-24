@@ -3,7 +3,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import { ErrorHandler } from "./shared/errorHandling/errorHandler";
 import moment from "moment";
-import loginRoutes from "./modules/loginRoutes";
+import loginRoutes from "./modules/user/login/loginRoutes";
 
 dotenv.config();
 

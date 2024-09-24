@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AppError } from "../shared/errorHandling/appError";
+import { AppError } from "../../../shared/errorHandling/appError";
 
 class LoginController {
   login = async (req: Request, res: Response): Promise<any> => {
