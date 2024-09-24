@@ -6,8 +6,6 @@ type AuthContextProviderProps = {
 
 type AuthContextDataProps = {
   user: IUserContext | null;
-  signIn: (token: string) => void;
-  signOut: () => void;
 };
 
 export const AuthContext = createContext<AuthContextDataProps>(
@@ -22,13 +20,17 @@ interface IUserContext {
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
   const [user, setUser] = useState<IUserContext | null>(null);
 
-  function signIn(token: string) {
-    const userInfos: any = decodeToken(token);
+  // function signIn(token: string) {
+  //   const userInfos: any = decodeToken(token);
+  //
+  //   setUser({
+  //     role: userInfos.profile.name,
+  //     id: userInfos._id,
+  //     email: userInfos.email,
+  //   });
+  // }
 
-    setUser({
-      role: userInfos.profile.name,
-      id: userInfos._id,
-      email: userInfos.email,
-    });
-  }
+  return (
+    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+  );
 }

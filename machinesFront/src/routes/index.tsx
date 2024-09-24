@@ -1,3 +1,7 @@
+import { AuthRoutes } from "./AuthRoutes.tsx";
+import { useAuth } from "../hooks/useAuth.ts";
+
 export function Routes() {
-    return <AuthRoutes/>
+  const { user } = useAuth();
+  return <AuthRoutes />;
 }
