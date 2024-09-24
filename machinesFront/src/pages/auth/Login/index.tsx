@@ -8,6 +8,7 @@ import { useAuth } from "../../../hooks/useAuth.ts";
 export function Login() {
   const { signIn } = useAuth();
   const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
+  const [submitted, setSubmitted] = useState(false);
   async function handleClick() {
     try {
       const { data } = await loginService(loginInfo);
@@ -24,10 +25,6 @@ export function Login() {
     });
   }
 
-  // const emailNotValid = loginInfo.email && !loginInfo.email.includes("@");
-  // const passwordNotValid =
-  //   loginInfo.password && loginInfo.password.trim().length < 6;
-
   return (
     <Main>
       <AuthContainer>
@@ -43,7 +40,7 @@ export function Login() {
             handleInputChange("password", event.target.value)
           }
         />
-        <CustomButton title="teste" onClick={handleClick} />
+        <CustomButton title="Entrar" onClick={handleClick} />
       </AuthContainer>
     </Main>
   );

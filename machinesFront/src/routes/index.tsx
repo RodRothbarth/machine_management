@@ -1,11 +1,18 @@
 import { AuthRoutes } from "./AuthRoutes.tsx";
 import { useAuth } from "../hooks/useAuth.ts";
+import { AppRoutes } from "./AppRoutes.tsx";
+import { Header } from "../components/Header";
 
 export function Routes() {
   const { user } = useAuth();
-  console.log(user);
+
   if (user) {
-    return <p>OI</p>;
+    return (
+      <>
+        <Header />
+        <AppRoutes />
+      </>
+    );
   }
 
   return <AuthRoutes />;
