@@ -11,9 +11,11 @@ export const Main = styled.main`
 export const AuthContainer = styled.div`
   display: flex;
   width: 30vw;
-  height: 60vh;
+  height: 30vh;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  gap: 3vh;
+  justify-content: center;
   border-radius: 15px;
+  background-color: #374151;
 `;
