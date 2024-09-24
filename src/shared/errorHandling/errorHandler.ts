@@ -1,8 +1,13 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { AppError } from "./appError";
 
-export const ErrorHandler = (error: AppError, req: Request, res: Response) => {
-  console.error("Error: ", error);
+export const ErrorHandler = (
+  error: AppError,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  console.error("Error: ", error.name);
   error.statusCode = error.statusCode || 500;
   error.status = error.status || "error";
 
@@ -16,33 +21,30 @@ export const ErrorHandler = (error: AppError, req: Request, res: Response) => {
   if (error.name === "ValidationError") error = handleValidationErrorDB();
   if (error.code === 11000) error = handleDuplicateFieldDB(error);
 
-  sendError(error, res);
+  sendDevError(error, res);
 };
 
-function sendError(error: any, res: Response) {
+function sendDevError(error: any, res: Response) {
   return res.status(error.statusCode).json({
     status: error.status,
     error: error,
-    messagem: error.messagem,
+    message: error.message,
   });
 }
 
 function handleDuplicateFieldDB(error: any) {
   const value = Object.entries(error.keyValue);
   const message = `Duplicate field value: ${value}`;
-
   return new AppError(message, 400);
 }
 
 function handleValidationErrorDB() {
   const message = `Invalid input data`;
-
   return new AppError(message, 400);
 }
 
 function handleCastErrorDB(error: any) {
   const message = `Invalid ${error.path}: ${error.value}`;
-
   return new AppError(message, 400);
 }
 
