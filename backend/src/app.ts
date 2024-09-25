@@ -27,6 +27,7 @@ app.get("/health", (req: Request, res: Response) => {
 app.use("/login", loginRoutes);
 app.use("/user", userRoutes);
 app.use("/machine", machineRoutes);
+app.use("/sensor", machineRoutes);
 
 app.use(ErrorHandler);
 export default app;

@@ -3,19 +3,19 @@ import MachineDBQuery from "./sensorDBQuery";
 import { IFilter, PaginatedDTO } from "../../shared/utils/IFilter";
 
 class SensorService {
-  createNewMachine = async (machineInfo: ISensor) => {
+  createNewSensor = async (machineInfo: ISensor) => {
     return await MachineDBQuery.createNewMachine(machineInfo);
   };
 
-  editMachine = async (id: string, machineInfo: ISensor): Promise<ISensor> => {
+  editSensor = async (id: string, machineInfo: ISensor): Promise<ISensor> => {
     return await MachineDBQuery.edit(id, machineInfo);
   };
 
-  getMachine = async (id: string): Promise<ISensor> => {
+  getSensor = async (id: string): Promise<ISensor> => {
     return await MachineDBQuery.getMachine(id);
   };
 
-  getAllMachines = async (query: any): Promise<PaginatedDTO> => {
+  getAllSensor = async (query: any): Promise<PaginatedDTO> => {
     const filter: IFilter = {
       orderBy: query.orderBy || "name",
       order: query.order || "desc",
@@ -23,7 +23,7 @@ class SensorService {
 
     return await MachineDBQuery.getAllMachines(filter);
   };
-  deleteMachine = async (id: string): Promise<any> => {
+  deleteSensor = async (id: string): Promise<any> => {
     return await MachineDBQuery.delete(id);
   };
 }

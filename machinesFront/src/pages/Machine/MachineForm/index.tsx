@@ -1,18 +1,33 @@
-import { formToJSON, postForm } from "axios";
 import { CustomInput } from "../../../components/Input";
-import { useState } from "react";
-import { IMachine } from "../IMachine.ts";
+import { useEffect, useState } from "react";
 import { CustomButton } from "../../../components/Button/CustomButton.tsx";
 import { FormContainer } from "./styles.ts";
+import { CustomSelect } from "../../../components/Select/Select.tsx";
+import { getAllSensors } from "../../../services/machineService.ts";
 
 export function MachineForm() {
-  const [machineInfo, setMachineInfo] = useState<IMachine>({
-    name: "",
-    type: "",
-  });
+  const [sensors, setSensors] = useState([
+    {
+      label: "Teste",
+      value: "oi",
+    },
+  ]);
 
   function onSubmmit() {}
 
+  async function getSensor() {
+    const { resultData } = await getAllSensors({
+      sort: {
+        orderBy: "name",
+        order: "desc",
+      },
+    });
+    setSensors(resultData);
+  }
+
+  useEffect(() => {
+    getSensor();
+  }, [sensors]);
   return (
     <FormContainer>
       <form onSubmit={onSubmmit}>
@@ -24,6 +39,7 @@ export function MachineForm() {
           label="Tipo"
           // onChange={(event) => handleInputChange("email", event.target.value)}
         />
+        <CustomSelect options={sensors}></CustomSelect>
         <CustomButton title="Salvar" />
       </form>
     </FormContainer>

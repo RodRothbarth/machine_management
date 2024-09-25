@@ -1,18 +1,18 @@
 import { Router } from "express";
 import { catchAsync } from "../../shared/errorHandling/catchAsync";
-import machineController from "./sensorController";
+import sensorController from "./sensorController";
 
 const router = Router();
 
 router
   .route("/")
-  .post(catchAsync(machineController.createMachine))
-  .get(catchAsync(machineController.getAllMachines));
+  .post(catchAsync(sensorController.createSensor))
+  .get(catchAsync(sensorController.getAllSensor));
 
 router
   .route("/:id")
-  .patch(catchAsync(machineController.editMachine))
-  .delete(catchAsync(machineController.deleteMachine))
-  .get(catchAsync(machineController.getMachine));
+  .patch(catchAsync(sensorController.editSensor))
+  .delete(catchAsync(sensorController.deleteSensor))
+  .get(catchAsync(sensorController.getSensor));
 
 export default router;

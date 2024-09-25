@@ -15,3 +15,10 @@ export async function getAllMachines(filter: filterType) {
   );
   return data;
 }
+
+export async function getAllSensors(filter: filterType) {
+  const { data } = await http.get(
+    `/sensor?orderBy=${filter.sort.orderBy}&order=${filter.sort.order}`,
+  );
+  return data;
+}

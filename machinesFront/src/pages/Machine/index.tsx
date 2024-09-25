@@ -11,14 +11,13 @@ export function Machine() {
   ]);
 
   async function getMachines() {
-    const response = await getAllMachines({
+    const { resultData } = await getAllMachines({
       sort: {
         orderBy: "name",
         order: "desc",
       },
     });
-    console.log("response", response);
-    setMachines(response);
+    setMachines(resultData);
   }
 
   useEffect(() => {

@@ -1,46 +1,46 @@
 import { Request, Response } from "express";
-import MachineService from "./sensorService";
+import SensorService from "./sensorService";
 
 class SensorController {
-  createMachine = async (req: Request, res: Response): Promise<any> => {
-    const machineInfo = req.body;
-    const newMachine = await MachineService.createNewMachine(machineInfo);
+  createSensor = async (req: Request, res: Response): Promise<any> => {
+    const sensorInfo = req.body;
+    const newSensor = await SensorService.createNewSensor(sensorInfo);
 
-    return res.status(200).json(newMachine);
+    return res.status(200).json(newSensor);
   };
 
-  getAllMachines = async (req: Request, res: Response): Promise<any> => {
+  getAllSensor = async (req: Request, res: Response): Promise<any> => {
     const getInfo = req.query;
     console.log(getInfo);
-    const allMachines = await MachineService.getAllMachines(getInfo);
+    const allSensors = await SensorService.getAllSensor(getInfo);
 
-    return res.status(200).json(allMachines);
+    return res.status(200).json(allSensors);
   };
 
-  editMachine = async (req: Request, res: Response) => {
+  editSensor = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const MachineInfo = req.body;
-    const updatedMachine = await MachineService.editMachine(id, MachineInfo);
+    const sensorInfo = req.body;
+    const updatedSensor = await SensorService.editSensor(id, sensorInfo);
 
     return res.status(200).json({
       status: "success",
-      data: updatedMachine,
+      data: updatedSensor,
     });
   };
 
-  getMachine = async (req: Request, res: Response) => {
+  getSensor = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const Machine = await MachineService.getMachine(id);
+    const Sensor = await SensorService.getSensor(id);
 
     return res.status(200).json({
       status: "sucess",
-      data: Machine,
+      data: Sensor,
     });
   };
 
-  deleteMachine = async (req: Request, res: Response) => {
+  deleteSensor = async (req: Request, res: Response) => {
     const { id } = req.params;
-    await MachineService.deleteMachine(id);
+    await SensorService.deleteSensor(id);
 
     return res.status(200).json({
       status: "Deleted",
