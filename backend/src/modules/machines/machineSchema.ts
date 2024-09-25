@@ -12,14 +12,16 @@ const machineSchema = new Schema<IMachine>({
     required: true,
     enum: ["Pump", "Fan"],
   },
-  monitoringPoint: {
-    name: String,
-    sensor: {
+  monitoringPoint: [
+    {
       name: String,
-      model: String,
-      _id: Types.ObjectId,
+      sensor: {
+        name: String,
+        model: String,
+        _id: Types.ObjectId,
+      },
     },
-  },
+  ],
 });
 
 const MACHINE = model("Machine", machineSchema);

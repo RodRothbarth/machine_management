@@ -11,7 +11,7 @@ router
 
 router
   .route("/:id")
-  .patch(catchAsync(machineController.editMachine))
+  .put(catchAsync(machineController.editMachine))
   .delete(catchAsync(machineController.deleteMachine))
   .get(catchAsync(machineController.getMachine));
 

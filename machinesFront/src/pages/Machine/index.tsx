@@ -10,11 +10,10 @@ import {
 import { CustomButton } from "../../components/Button/CustomButton.tsx";
 
 export function Machine() {
-  const [machines, setMachines] = useState<IMachine[]>([
-    { name: "teste", type: "tes" },
-  ]);
+  const [machines, setMachines] = useState<IMachine[]>([]);
+
   const [novo, setNovo] = useState(false);
-  const [editMachine, setEditMachine] = useState<IMachine | undefined>();
+  const [editMachine, setEditMachine] = useState<IMachine>();
   async function handleDelete(id: string) {
     try {
       await deleteMachine(id).then(() => getMachines());
@@ -24,6 +23,7 @@ export function Machine() {
   }
 
   function handleNew() {
+    setEditMachine(undefined);
     setNovo((prevState) => !prevState);
   }
 
@@ -38,7 +38,8 @@ export function Machine() {
   }
 
   async function handleEdit(machine: IMachine) {
-    setEditMachine(machine);
+    setEditMachine((prevState) => machine);
+
     setNovo(true);
   }
 
@@ -49,7 +50,7 @@ export function Machine() {
   return (
     <Container>
       {novo ? (
-        <MachineForm onBack={handleNew} machineEdit={editMachine} />
+        <MachineForm onBack={handleNew} editMachine={editMachine} />
       ) : (
         <ListContainer>
           <CustomButton title="+ Nova" onClick={handleNew} />

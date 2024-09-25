@@ -5,11 +5,12 @@ import { ISensor } from "../../pages/Machine/MachineForm";
 interface SelectProps {
   options: ISensor[];
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  value: string;
 }
 
-export function CustomSelect({ options, onChange }: SelectProps) {
+export function CustomSelect({ options, onChange, value }: SelectProps) {
   return (
-    <Select onChange={(event) => onChange(event)}>
+    <Select value={value} onChange={(event) => onChange(event)}>
       <StyledOption key="0" value=""></StyledOption>
       {options.map((option: ISensor) => (
         <StyledOption key={option._id} value={option._id}>

@@ -6,6 +6,7 @@ import { CustomSelect } from "../../../components/Select/Select.tsx";
 import {
   createMachine,
   getAllSensors,
+  upDateMachine,
 } from "../../../services/machineService.ts";
 import { IMachine } from "../IMachine.ts";
 
@@ -17,11 +18,11 @@ export type ISensor = {
 
 type machineForm = {
   onBack: () => void;
-  editMachine?: IMachine;
+  editMachine: IMachine;
 };
 
 export function MachineForm({ onBack, editMachine }: machineForm) {
-  const [newMachine, setNewMachine] = useState({
+  const [newMachine, setNewMachine] = useState<IMachine>({
     name: "",
     type: "",
     monitoringPoint: [{}, {}],
@@ -34,14 +35,19 @@ export function MachineForm({ onBack, editMachine }: machineForm) {
       model: "",
     },
   ]);
+
   const [selectedValue, setSelectedValue] = useState<ISensor>();
+
+  function setEdit() {
+    setNewMachine(editMachine);
+  }
 
   function handleFormInput(identifier: string, value: string) {
     setNewMachine((prevState) => {
       return {
         ...prevState,
         [identifier]: value,
-        monitoringPoint: [selectedValue],
+        monitoringPoint: sensors,
       };
     });
   }
@@ -49,7 +55,11 @@ export function MachineForm({ onBack, editMachine }: machineForm) {
     event.preventDefault();
 
     try {
-      await createMachine(newMachine);
+      if (editMachine) {
+        await upDateMachine(newMachine);
+      } else {
+        await createMachine(newMachine);
+      }
       onBack();
     } catch (e) {
       console.error(e.message);
@@ -84,10 +94,12 @@ export function MachineForm({ onBack, editMachine }: machineForm) {
     setSensors(resultData);
   }
 
-  console.log(editMachine);
   useEffect(() => {
     getSensor();
-  }, [editMachine]);
+    if (editMachine) {
+      setEdit();
+    }
+  }, []);
   return (
     <form
       onSubmit={async (event) => {
@@ -98,12 +110,12 @@ export function MachineForm({ onBack, editMachine }: machineForm) {
         <CustomInput
           label="Nome"
           onChange={(event) => handleFormInput("name", event.target.value)}
-          // value={editMachine ? editMachine.name }
+          value={newMachine.name}
         />
         <CustomInput
           label="Tipo"
           onChange={(event) => handleFormInput("type", event.target.value)}
-          // value={editMachine ? editMachine.name : ""}
+          value={newMachine.type}
         />
         <h3>Sensores</h3>
         <SelectContainer>
@@ -112,7 +124,8 @@ export function MachineForm({ onBack, editMachine }: machineForm) {
               key={index}
               options={sensors}
               onChange={handleSelect}
-            ></CustomSelect>
+              value={select._id}
+            />
           ))}
         </SelectContainer>
 

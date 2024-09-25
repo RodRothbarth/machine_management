@@ -2,11 +2,16 @@ import { http } from "./http.ts";
 import { filterType } from "../utils/filterType.ts";
 
 type IMachine = {
+  _id?: string;
   name: string;
   type: string;
 };
 export async function createMachine(machineInfo: IMachine) {
   return await http.post(`/machine`, machineInfo);
+}
+
+export async function upDateMachine(machineInfo: IMachine) {
+  return await http.put(`/machine/${machineInfo._id}`, machineInfo);
 }
 
 export async function getAllMachines(filter: filterType) {
