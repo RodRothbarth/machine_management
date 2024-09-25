@@ -6,6 +6,7 @@ import moment from "moment";
 import loginRoutes from "./modules/user/login/loginRoutes";
 import userRoutes from "./modules/user/userRoutes";
 import machineRoutes from "./modules/machines/machineRoutes";
+import sensorRoutes from "./modules/sensors/sensorRoutes";
 
 dotenv.config();
 
@@ -27,7 +28,7 @@ app.get("/health", (req: Request, res: Response) => {
 app.use("/login", loginRoutes);
 app.use("/user", userRoutes);
 app.use("/machine", machineRoutes);
-app.use("/sensor", machineRoutes);
+app.use("/sensor", sensorRoutes);
 
 app.use(ErrorHandler);
 export default app;

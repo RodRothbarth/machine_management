@@ -3,17 +3,48 @@ import { useEffect, useState } from "react";
 import { CustomButton } from "../../../components/Button/CustomButton.tsx";
 import { FormContainer } from "./styles.ts";
 import { CustomSelect } from "../../../components/Select/Select.tsx";
-import { getAllSensors } from "../../../services/machineService.ts";
+import {
+  createMachine,
+  getAllSensors,
+} from "../../../services/machineService.ts";
 
 export function MachineForm() {
+  const [newMachine, setNewMachine] = useState({
+    name: "",
+    type: "",
+    monitoringPoint: [],
+  });
   const [sensors, setSensors] = useState([
     {
-      label: "Teste",
-      value: "oi",
+      _id: "",
+      name: "",
+      model: "",
     },
   ]);
+  const [selectedValue, setSelectedValue] = useState<string>("option1");
 
-  function onSubmmit() {}
+  function handleFormInput(identifier: string, value: string) {
+    setNewMachine((prevState) => {
+      return {
+        ...prevState,
+        [identifier]: value,
+        monitoringPoint: [selectedValue],
+      };
+    });
+  }
+  async function onSubmmit(event) {
+    event.preventDefault();
+
+    try {
+      await createMachine(newMachine);
+    } catch (e) {
+      console.error(e.message);
+    }
+  }
+
+  function handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
+    setSelectedValue(event.target.value);
+  }
 
   async function getSensor() {
     const { resultData } = await getAllSensors({
@@ -27,19 +58,23 @@ export function MachineForm() {
 
   useEffect(() => {
     getSensor();
-  }, [sensors]);
+  }, []);
   return (
     <FormContainer>
-      <form onSubmit={onSubmmit}>
+      <form
+        onSubmit={async (event) => {
+          await onSubmmit(event);
+        }}
+      >
         <CustomInput
           label="Nome"
-          // onChange={(event) => handleInputChange("email", event.target.value)}
+          onChange={(event) => handleFormInput("name", event.target.value)}
         />
         <CustomInput
           label="Tipo"
-          // onChange={(event) => handleInputChange("email", event.target.value)}
+          onChange={(event) => handleFormInput("type", event.target.value)}
         />
-        <CustomSelect options={sensors}></CustomSelect>
+        <CustomSelect options={sensors} onChange={handleSelect}></CustomSelect>
         <CustomButton title="Salvar" />
       </form>
     </FormContainer>

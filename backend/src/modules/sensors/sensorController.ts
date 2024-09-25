@@ -11,7 +11,6 @@ class SensorController {
 
   getAllSensor = async (req: Request, res: Response): Promise<any> => {
     const getInfo = req.query;
-    console.log(getInfo);
     const allSensors = await SensorService.getAllSensor(getInfo);
 
     return res.status(200).json(allSensors);

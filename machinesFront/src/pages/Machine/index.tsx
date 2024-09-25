@@ -22,7 +22,7 @@ export function Machine() {
 
   useEffect(() => {
     getMachines();
-  }, [machines]);
+  }, []);
 
   return (
     <Container>

@@ -1,18 +1,18 @@
 import { ISensor } from "./ISensor";
-import MachineDBQuery from "./sensorDBQuery";
 import { IFilter, PaginatedDTO } from "../../shared/utils/IFilter";
+import SensorDBQuery from "./sensorDBQuery";
 
 class SensorService {
-  createNewSensor = async (machineInfo: ISensor) => {
-    return await MachineDBQuery.createNewMachine(machineInfo);
+  createNewSensor = async (sensorInfo: ISensor) => {
+    return await SensorDBQuery.createNewMachine(sensorInfo);
   };
 
-  editSensor = async (id: string, machineInfo: ISensor): Promise<ISensor> => {
-    return await MachineDBQuery.edit(id, machineInfo);
+  editSensor = async (id: string, sensorInfo: ISensor): Promise<ISensor> => {
+    return await SensorDBQuery.edit(id, sensorInfo);
   };
 
   getSensor = async (id: string): Promise<ISensor> => {
-    return await MachineDBQuery.getMachine(id);
+    return await SensorDBQuery.getMachine(id);
   };
 
   getAllSensor = async (query: any): Promise<PaginatedDTO> => {
@@ -21,10 +21,10 @@ class SensorService {
       order: query.order || "desc",
     };
 
-    return await MachineDBQuery.getAllMachines(filter);
+    return await SensorDBQuery.getAllMachines(filter);
   };
   deleteSensor = async (id: string): Promise<any> => {
-    return await MachineDBQuery.delete(id);
+    return await SensorDBQuery.delete(id);
   };
 }
 

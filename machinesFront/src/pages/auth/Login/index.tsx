@@ -18,14 +18,13 @@ export function Login() {
 
   async function handleClick(event) {
     event.preventDefault();
-    console.log("tentei");
+
     try {
       const valid = checkValidForm();
       console.log("valid", valid);
       if (valid) {
         const { data } = await loginService(loginInfo);
         localStorage.setItem("jwt", data);
-        console.log(data);
         signIn(data);
       }
     } catch (e) {
