@@ -1,27 +1,33 @@
 import { CustomInput } from "../../../components/Input";
 import { useEffect, useState } from "react";
 import { CustomButton } from "../../../components/Button/CustomButton.tsx";
-import { FormContainer } from "./styles.ts";
+import { FormContainer, SelectContainer } from "./styles.ts";
 import { CustomSelect } from "../../../components/Select/Select.tsx";
 import {
   createMachine,
   getAllSensors,
 } from "../../../services/machineService.ts";
 
+export type ISensor = {
+  _id: string;
+  name: string;
+  model: string;
+};
+
 export function MachineForm() {
   const [newMachine, setNewMachine] = useState({
     name: "",
     type: "",
-    monitoringPoint: [],
+    monitoringPoint: [{}, {}],
   });
-  const [sensors, setSensors] = useState([
+  const [sensors, setSensors] = useState<ISensor[]>([
     {
       _id: "",
       name: "",
       model: "",
     },
   ]);
-  const [selectedValue, setSelectedValue] = useState<string>("option1");
+  const [selectedValue, setSelectedValue] = useState<ISensor>();
 
   function handleFormInput(identifier: string, value: string) {
     setNewMachine((prevState) => {
@@ -42,8 +48,22 @@ export function MachineForm() {
     }
   }
 
+  function handleAddSensor() {
+    if (newMachine.monitoringPoint.length <= 2) {
+    }
+    setNewMachine((prevState) => {
+      return {
+        ...prevState,
+        monitoringPoint: [...prevState, selectedValue],
+      };
+    });
+  }
+
   function handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
-    setSelectedValue(event.target.value);
+    console.log(sensors.find((sensor) => sensor._id === event.target.value));
+    setSelectedValue(
+      sensors.find((sensor) => sensor._id === event.target.value),
+    );
   }
 
   async function getSensor() {
@@ -60,12 +80,12 @@ export function MachineForm() {
     getSensor();
   }, []);
   return (
-    <FormContainer>
-      <form
-        onSubmit={async (event) => {
-          await onSubmmit(event);
-        }}
-      >
+    <form
+      onSubmit={async (event) => {
+        await onSubmmit(event);
+      }}
+    >
+      <FormContainer>
         <CustomInput
           label="Nome"
           onChange={(event) => handleFormInput("name", event.target.value)}
@@ -74,9 +94,19 @@ export function MachineForm() {
           label="Tipo"
           onChange={(event) => handleFormInput("type", event.target.value)}
         />
-        <CustomSelect options={sensors} onChange={handleSelect}></CustomSelect>
+        <h3>Sensores</h3>
+        <SelectContainer>
+          {newMachine.monitoringPoint.map((select, index) => (
+            <CustomSelect
+              key={index}
+              options={sensors}
+              onChange={handleSelect}
+            ></CustomSelect>
+          ))}
+        </SelectContainer>
+
         <CustomButton title="Salvar" />
-      </form>
-    </FormContainer>
+      </FormContainer>
+    </form>
   );
 }

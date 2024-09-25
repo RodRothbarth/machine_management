@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 export const Select = styled.select`
   width: ${({ width }) => width || "150px"};
+  height: ${({ width }) => width || "2rem"};
+  margin: 1rem;
   padding: 8px;
   background-color: ${({ $invalid }) => ($invalid ? "#fed2d2" : "#d1d5db")};
   border: 1px solid ${({ $invalid }) => ($invalid ? "#f73f3f" : "transparent")};

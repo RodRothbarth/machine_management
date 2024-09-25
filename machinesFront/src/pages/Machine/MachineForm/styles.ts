@@ -6,3 +6,11 @@ export const FormContainer = styled.main`
   flex-direction: column;
   align-items: center;
 `;
+
+export const SelectContainer = styled.div`
+  display: flex;
+  gap: 5px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+`;
