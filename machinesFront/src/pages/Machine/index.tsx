@@ -3,12 +3,23 @@ import { useEffect, useState } from "react";
 import { IMachine } from "./IMachine.ts";
 import { Container, ListHeaderContainer } from "./styles.ts";
 import { MachineForm } from "./MachineForm";
-import { getAllMachines } from "../../services/machineService.ts";
+import {
+  deleteMachine,
+  getAllMachines,
+} from "../../services/machineService.ts";
 
 export function Machine() {
   const [machines, setMachines] = useState<IMachine[]>([
     { name: "teste", type: "tes" },
   ]);
+
+  async function handleDelete(id: string) {
+    try {
+      await deleteMachine(id).then(() => getMachines());
+    } catch (e) {
+      console.error("Erro ao deletar maquina");
+    }
+  }
 
   async function getMachines() {
     const { resultData } = await getAllMachines({
@@ -35,7 +46,7 @@ export function Machine() {
         <p></p>
       </ListHeaderContainer>
       {machines.map((item: IMachine) => (
-        <ListItem machine={item} />
+        <ListItem machine={item} onDelete={handleDelete} />
       ))}
     </Container>
   );

@@ -16,6 +16,10 @@ export async function getAllMachines(filter: filterType) {
   return data;
 }
 
+export async function deleteMachine(id: string) {
+  await http.delete(`/machine/${id}`);
+}
+
 export async function getAllSensors(filter: filterType) {
   const { data } = await http.get(
     `/sensor?orderBy=${filter.sort.orderBy}&order=${filter.sort.order}`,
