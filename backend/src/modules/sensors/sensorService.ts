@@ -1,20 +1,17 @@
-import { IMachine } from "./IMachine";
-import MachineDBQuery from "./machineDBQuery";
+import { ISensor } from "./ISensor";
+import MachineDBQuery from "./sensorDBQuery";
 import { IFilter, PaginatedDTO } from "../../shared/utils/IFilter";
 
-class MachineService {
-  createNewMachine = async (machineInfo: IMachine) => {
+class SensorService {
+  createNewMachine = async (machineInfo: ISensor) => {
     return await MachineDBQuery.createNewMachine(machineInfo);
   };
 
-  editMachine = async (
-    id: string,
-    machineInfo: IMachine,
-  ): Promise<IMachine> => {
+  editMachine = async (id: string, machineInfo: ISensor): Promise<ISensor> => {
     return await MachineDBQuery.edit(id, machineInfo);
   };
 
-  getMachine = async (id: string): Promise<IMachine> => {
+  getMachine = async (id: string): Promise<ISensor> => {
     return await MachineDBQuery.getMachine(id);
   };
 
@@ -31,4 +28,4 @@ class MachineService {
   };
 }
 
-export default new MachineService();
+export default new SensorService();

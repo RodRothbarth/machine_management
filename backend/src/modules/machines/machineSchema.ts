@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 import { IMachine } from "./IMachine";
 
 const machineSchema = new Schema<IMachine>({
@@ -9,7 +9,16 @@ const machineSchema = new Schema<IMachine>({
   },
   type: {
     type: String,
+    required: true,
     enum: ["Pump", "Fan"],
+  },
+  monitoringPoint: {
+    name: String,
+    sensor: {
+      name: String,
+      model: String,
+      _id: Types.ObjectId,
+    },
   },
 });
 

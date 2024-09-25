@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { catchAsync } from "../../shared/errorHandling/catchAsync";
-import machineController from "./machineController";
+import machineController from "./sensorController";
 
 const router = Router();
 

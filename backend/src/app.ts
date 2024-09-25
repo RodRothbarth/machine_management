@@ -5,6 +5,7 @@ import { ErrorHandler } from "./shared/errorHandling/errorHandler";
 import moment from "moment";
 import loginRoutes from "./modules/user/login/loginRoutes";
 import userRoutes from "./modules/user/userRoutes";
+import machineRoutes from "./modules/machines/machineRoutes";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.get("/health", (req: Request, res: Response) => {
 
 app.use("/login", loginRoutes);
 app.use("/user", userRoutes);
+app.use("/machine", machineRoutes);
 
 app.use(ErrorHandler);
 export default app;

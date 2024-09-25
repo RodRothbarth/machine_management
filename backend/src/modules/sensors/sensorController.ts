@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import MachineService from "./machineService";
+import MachineService from "./sensorService";
 
-class MachineController {
+class SensorController {
   createMachine = async (req: Request, res: Response): Promise<any> => {
     const machineInfo = req.body;
     const newMachine = await MachineService.createNewMachine(machineInfo);
@@ -48,4 +48,4 @@ class MachineController {
   };
 }
 
-export default new MachineController();
+export default new SensorController();

@@ -10,7 +10,7 @@ class UserController {
   };
 
   getAllUsers = async (req: Request, res: Response): Promise<any> => {
-    const getInfo = req.body;
+    const getInfo = req.query;
     const allUsers = await UserService.getAllUsers(getInfo);
 
     return res.status(200).json(allUsers);
