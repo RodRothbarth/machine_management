@@ -8,13 +8,19 @@ interface PropsButton
   > {
   title: string;
   onLoading?: boolean;
+  $delete?: boolean;
 }
 
 export function CustomButton({
   title,
   onLoading,
   onClick,
+  $delete,
   ...props
 }: PropsButton) {
-  return <Button onClick={onClick}>{title}</Button>;
+  return (
+    <Button $delete={$delete} onClick={onClick}>
+      {title}
+    </Button>
+  );
 }

@@ -1,4 +1,5 @@
 import { Container, Div, Name } from "./styles.tsx";
+import { CustomButton } from "../Button/CustomButton.tsx";
 
 export function ListItem({ machine }) {
   return (
@@ -6,8 +7,8 @@ export function ListItem({ machine }) {
       <Name>{machine.name}</Name>
       <Name>{machine.type}</Name>
       <Div>
-        <button>oi</button>
-        <button>oi</button>
+        <CustomButton title="Editar" />
+        <CustomButton title="Excluir" $delete />
       </Div>
     </Container>
   );
