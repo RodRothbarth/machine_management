@@ -7,6 +7,7 @@ import {
   createMachine,
   getAllSensors,
 } from "../../../services/machineService.ts";
+import { IMachine } from "../IMachine.ts";
 
 export type ISensor = {
   _id: string;
@@ -14,12 +15,18 @@ export type ISensor = {
   model: string;
 };
 
-export function MachineForm() {
+type machineForm = {
+  onBack: () => void;
+  editMachine?: IMachine;
+};
+
+export function MachineForm({ onBack, editMachine }: machineForm) {
   const [newMachine, setNewMachine] = useState({
     name: "",
     type: "",
     monitoringPoint: [{}, {}],
   });
+
   const [sensors, setSensors] = useState<ISensor[]>([
     {
       _id: "",
@@ -43,6 +50,7 @@ export function MachineForm() {
 
     try {
       await createMachine(newMachine);
+      onBack();
     } catch (e) {
       console.error(e.message);
     }
@@ -76,9 +84,10 @@ export function MachineForm() {
     setSensors(resultData);
   }
 
+  console.log(editMachine);
   useEffect(() => {
     getSensor();
-  }, []);
+  }, [editMachine]);
   return (
     <form
       onSubmit={async (event) => {
@@ -89,10 +98,12 @@ export function MachineForm() {
         <CustomInput
           label="Nome"
           onChange={(event) => handleFormInput("name", event.target.value)}
+          // value={editMachine ? editMachine.name }
         />
         <CustomInput
           label="Tipo"
           onChange={(event) => handleFormInput("type", event.target.value)}
+          // value={editMachine ? editMachine.name : ""}
         />
         <h3>Sensores</h3>
         <SelectContainer>
@@ -106,6 +117,7 @@ export function MachineForm() {
         </SelectContainer>
 
         <CustomButton title="Salvar" />
+        <CustomButton title="Voltar" onClick={onBack} $delete />
       </FormContainer>
     </form>
   );

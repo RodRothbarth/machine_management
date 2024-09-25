@@ -1,24 +1,30 @@
 import { ListItem } from "../../components/ListItem";
 import { useEffect, useState } from "react";
 import { IMachine } from "./IMachine.ts";
-import { Container, ListHeaderContainer } from "./styles.ts";
+import { Container, ListContainer, ListHeaderContainer } from "./styles.ts";
 import { MachineForm } from "./MachineForm";
 import {
   deleteMachine,
   getAllMachines,
 } from "../../services/machineService.ts";
+import { CustomButton } from "../../components/Button/CustomButton.tsx";
 
 export function Machine() {
   const [machines, setMachines] = useState<IMachine[]>([
     { name: "teste", type: "tes" },
   ]);
-
+  const [novo, setNovo] = useState(false);
+  const [editMachine, setEditMachine] = useState<IMachine | undefined>();
   async function handleDelete(id: string) {
     try {
       await deleteMachine(id).then(() => getMachines());
     } catch (e) {
       console.error("Erro ao deletar maquina");
     }
+  }
+
+  function handleNew() {
+    setNovo((prevState) => !prevState);
   }
 
   async function getMachines() {
@@ -31,23 +37,39 @@ export function Machine() {
     setMachines(resultData);
   }
 
+  async function handleEdit(machine: IMachine) {
+    setEditMachine(machine);
+    setNovo(true);
+  }
+
   useEffect(() => {
     getMachines();
-  }, []);
+  }, [novo]);
 
   return (
     <Container>
-      <MachineForm />
-      <h2>Machinas</h2>
-      <ListHeaderContainer>
-        <p>Nome</p>
-        <p>Tipo</p>
-        <p></p>
-        <p></p>
-      </ListHeaderContainer>
-      {machines.map((item: IMachine) => (
-        <ListItem machine={item} onDelete={handleDelete} />
-      ))}
+      {novo ? (
+        <MachineForm onBack={handleNew} machineEdit={editMachine} />
+      ) : (
+        <ListContainer>
+          <CustomButton title="+ Nova" onClick={handleNew} />
+          <h2>Machinas</h2>
+          <ListHeaderContainer>
+            <p>Nome</p>
+            <p>Tipo</p>
+            <p></p>
+            <p></p>
+          </ListHeaderContainer>
+          {machines.map((item: IMachine, index) => (
+            <ListItem
+              key={index}
+              machine={item}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+          ))}
+        </ListContainer>
+      )}
     </Container>
   );
 }

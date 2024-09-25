@@ -15,3 +15,12 @@ export const ListHeaderContainer = styled.div`
   align-items: flex-start;
   justify-content: space-between;
 `;
+
+export const ListContainer = styled.div`
+  width: 90%;
+  display: flex;
+  padding-top: 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+`;

@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { InputProps } from "./index.tsx";
 
-export const Input = styled.input`
+export const Input = styled.input.attrs<InputProps>((props) => ({ ...props }))`
   width: 30vh;
   line-height: 1.5;
   background-color: ${({ $invalid }) => ($invalid ? "#fed2d2" : "#d1d5db")};
