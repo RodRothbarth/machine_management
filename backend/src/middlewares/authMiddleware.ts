@@ -26,6 +26,17 @@ class AuthMiddleware {
       next();
     },
   );
+  restrictTo = (...roles: string[]) => {
+    return (req: Request, res: Response, next: NextFunction) => {
+      if (!roles.includes(req.user!.profile)) {
+        throw new AppError(
+          "Você não tem permissão para realisar esta ação!",
+          403,
+        );
+      }
+      next();
+    };
+  };
 }
 
 export default new AuthMiddleware();

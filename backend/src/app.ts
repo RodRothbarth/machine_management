@@ -7,6 +7,7 @@ import loginRoutes from "./modules/user/login/loginRoutes";
 import userRoutes from "./modules/user/userRoutes";
 import machineRoutes from "./modules/machines/machineRoutes";
 import sensorRoutes from "./modules/sensors/sensorRoutes";
+import AuthMiddleware from "./middlewares/authMiddleware";
 
 dotenv.config();
 
@@ -26,9 +27,9 @@ app.get("/health", (req: Request, res: Response) => {
 });
 
 app.use("/login", loginRoutes);
-app.use("/user", userRoutes);
-app.use("/machine", machineRoutes);
-app.use("/sensor", sensorRoutes);
+app.use("/user", AuthMiddleware.tokenHandler, userRoutes);
+app.use("/machine", AuthMiddleware.tokenHandler, machineRoutes);
+app.use("/sensor", AuthMiddleware.tokenHandler, sensorRoutes);
 
 app.use(ErrorHandler);
 export default app;
